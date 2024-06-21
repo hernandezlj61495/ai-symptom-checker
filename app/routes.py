@@ -13,9 +13,8 @@ def index():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    symptoms = request.json['symptoms']
-    # Implement your prediction logic here
-    prediction = model.predict([symptoms])
-    # Provide recommendations based on the prediction
+    data = request.json['symptoms']
+    symptoms = [data]  # The model expects a 2D array
+    prediction = model.predict(symptoms)
     recommendations = "See a doctor" if prediction[0] == 1 else "Home care"
     return jsonify({'prediction': prediction[0], 'recommendations': recommendations})
